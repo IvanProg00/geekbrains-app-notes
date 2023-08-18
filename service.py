@@ -8,14 +8,7 @@ FILE_NAME = "notes.json"
 
 
 def create(title: str, message: str):
-    data = []
-    file = Path(FILE_NAME)
-    if file.is_file():
-        with open(FILE_NAME, "r") as f:
-            try:
-                data = json.load(f)
-            except json.decoder.JSONDecodeError as e:
-                pass
+    data = read()
 
     note = {
         "id": str(uuid.uuid4()),
@@ -41,3 +34,12 @@ def read() -> List[dict]:
                 pass
 
     return data
+
+
+def delete(id: str):
+    data = read()
+
+    data = [x for x in data if x["id"] != id]
+
+    with open(FILE_NAME, "w") as f:
+        json.dump(data, f)

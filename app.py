@@ -13,11 +13,13 @@ def cli():
     "-m", "--message", type=str, required=True, help="Description of the note."
 )
 def create(title: str, message: str):
+    """Create note."""
     service.create(title, message)
 
 
 @click.command("read")
 def read():
+    """Read notes."""
     data = service.read()
     for val in data:
         print(f"id: {val['id']}")
@@ -27,8 +29,16 @@ def read():
         print("--------------------")
 
 
+@click.command("delete")
+@click.option("--id", type=str, required=True, help="ID of the note.")
+def delete(id):
+    """Delete note."""
+    service.delete(id)
+
+
 cli.add_command(create)
 cli.add_command(read)
+cli.add_command(delete)
 
 if __name__ == "__main__":
     cli()
