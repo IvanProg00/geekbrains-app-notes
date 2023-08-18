@@ -10,13 +10,25 @@ def cli():
 @click.command("create")
 @click.option("-t", "--title", type=str, required=True, help="Title of the note.")
 @click.option(
-    "-d", "--description", type=str, required=True, help="Description of the note."
+    "-m", "--message", type=str, required=True, help="Description of the note."
 )
-def create(title, description):
-    service.create(title, description)
+def create(title: str, message: str):
+    service.create(title, message)
+
+
+@click.command("read")
+def read():
+    data = service.read()
+    for val in data:
+        print(f"id: {val['id']}")
+        print(f"title: {val['title']}")
+        print(f"message {val['message']}")
+        print(f"created at: {val['created_at']}")
+        print("--------------------")
 
 
 cli.add_command(create)
+cli.add_command(read)
 
 if __name__ == "__main__":
     cli()
