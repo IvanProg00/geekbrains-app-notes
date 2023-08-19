@@ -7,10 +7,18 @@ delete note.
 
 ## Usage
 
+### Installation
+
+```bash
+pip3 install -r requirements.txt
+```
+
+### Commands
+
 Create note:
 
 ```bash
-python3 app.py create -t "Title 1" -m "Message"
+python3 app.py create -t "Title" -m "Message"
 ```
 
 Read notes:

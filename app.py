@@ -23,11 +23,13 @@ def read():
     """Read notes."""
     data = service.read()
     for val in data:
-        print(f"id: {val['id']}")
-        print(f"title: {val['title']}")
-        print(f"message {val['message']}")
-        print(f"created at: {val['created_at']}")
-        print("--------------------")
+        print(
+            f"""id: {val['id']}
+title: {val['title']}
+message {val['message']}
+created at: {val['created_at']}
+--------------------"""
+        )
 
 
 @click.command("update")
