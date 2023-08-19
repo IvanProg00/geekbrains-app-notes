@@ -78,7 +78,7 @@ def get_list() -> List[dict]:
         with open(FILE_NAME, "r") as f:
             try:
                 data = json.load(f)
-            except json.decoder.JSONDecodeError as e:
+            except json.decoder.JSONDecodeError:
                 pass
 
     return data

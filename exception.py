@@ -1,2 +1,8 @@
+"""
+This module contains errors.
+"""
+
 class ItemNotFound(Exception):
-    pass
+    """
+    Item not found.
+    """
