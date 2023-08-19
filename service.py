@@ -33,6 +33,16 @@ def read() -> List[dict]:
     return data
 
 
+def get(id: str) -> dict | None:
+    data = get_list()
+
+    for val in data:
+        if val["id"] == id:
+            return val
+
+    return None
+
+
 def update(id: str, title: str, message: str):
     data = get_list()
 

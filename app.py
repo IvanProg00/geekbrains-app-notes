@@ -32,6 +32,23 @@ created at: {val['created_at']}
         )
 
 
+@click.command("get")
+@click.option("--id", type=str, required=True, help="ID of the note.")
+def get(id):
+    """Get note."""
+    data = service.get(id)
+
+    if data is None:
+        print("element with specified id not found")
+    else:
+        print(
+            f"""id: {data['id']}
+title: {data['title']}
+message {data['message']}
+created at: {data['created_at']}"""
+        )
+
+
 @click.command("update")
 @click.option("--id", type=str, required=True, help="ID of the note.")
 @click.option("-t", "--title", type=str, required=True, help="Title of the note.")
@@ -58,6 +75,7 @@ def delete(id):
 
 cli.add_command(create)
 cli.add_command(read)
+cli.add_command(get)
 cli.add_command(update)
 cli.add_command(delete)
 

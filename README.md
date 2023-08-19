@@ -27,6 +27,12 @@ Read notes:
 python3 app.py read
 ```
 
+Get note by ID:
+
+```bash
+python3 app.py get --id "61fd5d5b-84f6-4905-b8ce-730c30ce68d7"
+```
+
 Update note:
 
 ```bash
