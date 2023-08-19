@@ -1,5 +1,6 @@
 import click
 import service
+from exception import ItemNotFound
 
 
 @click.group()
@@ -29,6 +30,20 @@ def read():
         print("--------------------")
 
 
+@click.command("update")
+@click.option("--id", type=str, required=True, help="ID of the note.")
+@click.option("-t", "--title", type=str, required=True, help="Title of the note.")
+@click.option(
+    "-m", "--message", type=str, required=True, help="Description of the note."
+)
+def update(id: str, title: str, message: str):
+    """Update note."""
+    try:
+        service.update(id, title, message)
+    except ItemNotFound:
+        print("element with specified id not found")
+
+
 @click.command("delete")
 @click.option("--id", type=str, required=True, help="ID of the note.")
 def delete(id):
@@ -38,6 +53,7 @@ def delete(id):
 
 cli.add_command(create)
 cli.add_command(read)
+cli.add_command(update)
 cli.add_command(delete)
 
 if __name__ == "__main__":
