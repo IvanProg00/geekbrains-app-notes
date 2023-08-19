@@ -9,13 +9,13 @@ FILE_NAME = "notes.json"
 
 
 def create(title: str, message: str):
-    data = read()
+    data = get_list()
 
     note = {
         "id": str(uuid.uuid4()),
         "title": title,
         "message": message,
-        "created_at": str(datetime.now()),
+        "created_at": datetime.now().isoformat(),
     }
 
     data.append(note)
@@ -25,20 +25,16 @@ def create(title: str, message: str):
 
 
 def read() -> List[dict]:
-    data = []
-    file = Path(FILE_NAME)
-    if file.is_file():
-        with open(FILE_NAME, "r") as f:
-            try:
-                data = json.load(f)
-            except json.decoder.JSONDecodeError as e:
-                pass
+    data = get_list()
+    data.sort(
+        key=lambda x: datetime.fromisoformat(x["created_at"]).timestamp(), reverse=True
+    )
 
     return data
 
 
 def update(id: str, title: str, message: str):
-    data = read()
+    data = get_list()
 
     for i in range(len(data)):
         if data[i]["id"] == id:
@@ -52,7 +48,7 @@ def update(id: str, title: str, message: str):
 
 
 def delete(id: str):
-    data = read()
+    data = get_list()
 
     for i in range(len(data)):
         if data[i]["id"] == id:
@@ -63,3 +59,16 @@ def delete(id: str):
 
     with open(FILE_NAME, "w") as f:
         json.dump(data, f)
+
+
+def get_list() -> List[dict]:
+    data = []
+    file = Path(FILE_NAME)
+    if file.is_file():
+        with open(FILE_NAME, "r") as f:
+            try:
+                data = json.load(f)
+            except json.decoder.JSONDecodeError as e:
+                pass
+
+    return data
