@@ -1,3 +1,7 @@
+"""
+Command line interface, that communicates between user and services.
+"""
+
 import click
 import service
 from exception import ItemNotFound
