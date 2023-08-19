@@ -54,7 +54,12 @@ def update(id: str, title: str, message: str):
 def delete(id: str):
     data = read()
 
-    data = [x for x in data if x["id"] != id]
+    for i in range(len(data)):
+        if data[i]["id"] == id:
+            data.pop(i)
+            break
+    else:
+        raise ItemNotFound
 
     with open(FILE_NAME, "w") as f:
         json.dump(data, f)

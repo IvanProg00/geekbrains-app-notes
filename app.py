@@ -48,7 +48,10 @@ def update(id: str, title: str, message: str):
 @click.option("--id", type=str, required=True, help="ID of the note.")
 def delete(id):
     """Delete note."""
-    service.delete(id)
+    try:
+        service.delete(id)
+    except ItemNotFound:
+        print("element with specified id not found")
 
 
 cli.add_command(create)
